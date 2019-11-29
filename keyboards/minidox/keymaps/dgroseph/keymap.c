@@ -44,8 +44,8 @@ enum custom_keycodes {
 #define LOWEND LT(_LOWER, KC_END)
 #define CTRBSP CTL_T(KC_BSPC)
 // #define CTRSPC CTL_T(KC_SPC)
-#define RAIPGD LT(_RAISE, KC_PGDN)
-#define ALTPGU RALT_T(KC_PGUP)
+#define RAIPGU LT(_RAISE, KC_PGUP)
+#define ALTPGP RALT_T(KC_PGDN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Q,     KC_W,  KC_E,   KC_R,   KC_T,        KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,        \
   KC_A,     KC_S,  KC_D,   KC_F,   KC_G,        KC_H,   KC_J,   KC_K,    KC_L,   KC_SCLN,     \
   LST(KC_Z),KC_X,  KC_C,   KC_V,   KC_B,        KC_N,   KC_M,   KC_COMM, KC_DOT, LST(KC_SLSH),\
-                   GUIHOM, LOWEND, CTRBSP,      KC_SPC, RAIPGD, ALTPGU                        \
+                   GUIHOM, LOWEND, CTRBSP,      KC_SPC, RAIPGU, ALTPGD                        \
 ),
 
 /*
