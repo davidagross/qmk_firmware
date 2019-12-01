@@ -116,11 +116,11 @@ enum custom_keycodes {
  * define it here. Note this if you change your layout!
  *
  * ,----------------------------------.           ,----------------------------------.
- * |      |      |      |      |      |           |      |      |      |      |      |
+ * |      |      |      |      (      |           |      )      |      |      |      |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |      |      |      |           |      |      |      |      |      |
+ * |      |      |      |      [      |           |      ]      |      |      |      |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |      |      |      |           |      |      |      |      |      |
+ * |      |      |      |      {      |           |      }      |      |      |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.     ,------,-------------.
  *                  |      |      |      |     |      |      |      |
@@ -131,9 +131,18 @@ enum custom_keycodes {
 combo_t key_combos[COMBO_COUNT] = {
     // Horizontal 2-Chords
 
-    // QW,WE,ER,RT,YU,UI,IO,OP,
-    // AS,SD,DF,FG,HJ,JK,KL,LQ,
-    // ZX,XC,CV,VB,NM,MC,CD,DS,
+    // QW,WE,ER
+    [RT] = COMBO(rt_combo, KC_LPRN),
+    [YU] = COMBO(yu_combo, KC_RPRN),
+    // UI,IO,OP,
+    // AS,SD,DF
+    [FG] = COMBO(fg_combo, KC_LBRC),
+    [HJ] = COMBO(hj_combo, KC_RBRC),
+    // JK,KL,LQ,
+    // ZX,XC,CV
+    [VB] = COMBO(vb_combo, KC_LCBR),
+    [NM] = COMBO(nm_combo, KC_RCBR),
+    // MC,CD,DS,
 
     // Vertical 2-Chords
 
