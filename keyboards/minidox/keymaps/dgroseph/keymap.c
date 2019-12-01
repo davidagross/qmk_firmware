@@ -249,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
  *                  | SHIFT| CTRL |      |    |      | CTRL | SHIFT|
- *                  `------+------|      |    |      |------+------'
+ *                  `------+------|  GUI |    |  GUI |------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
@@ -257,7 +257,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  _______, _______, _______, NAV_LK,       KC_PAUS, KC_ACL0, KC_ACL1, KC_ACL2, KC_PSCR, \
   KC_TAB,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,      KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, KC_INS,  \
   KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,      KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_SLCK, \
-                    KC_LSFT, KC_LCTL, _______,      _______, KC_RCTL, KC_RSFT                    \
+                    KC_LSFT, KC_LCTL, LGUI_T,       RGUI_T,  KC_RCTL, KC_RSFT                    \
 ),
 
 /* System, media, and layer lock keys from dustypomerleau
