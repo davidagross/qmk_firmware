@@ -127,33 +127,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_QWERTY] = LAYOUT( \
-  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,        KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,   \
-  SFT_A,   CTRL_S,  ALT_D,   GUI_F,  KC_G,        KC_H,   GUI_J,  ALT_K,   CTRL_L, SFT_QOT,\
-  SYS_Z,   KC_X,    KC_C,    KC_V,   KC_B,        KC_N,   KC_M,   KC_COMM, KC_DOT, SYS_SLH,\
-                    SFTHOM,  NUMEND, NAV_BK,      NAV_SP, SYMPGU, SFTPGD                   \
-),
-
-/* Symbol
- * Focus on one-handed use from tw1t611, symbol layer from oprietop's Lower
- *
- * ,----------------------------------.           ,----------------------------------.
- * |   !  |   @  |   #  |   $  |   %  |           |   ^  |   &  |   *  |  (   |   )  |
- * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |      |      |      |           |   `  |   ;  |   :  |  [   |   ]  |
- * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |      |      |      |           |   ~  |   \  |   |  |  {   |   }  |
- * `----------------------------------'           `----------------------------------'
- *                  ,--------------------.    ,------,-------------.
- *                  |SFTHOM|  FUN |      |    |      |      |SYM LK|
- *                  `-------------|  DEL |    |      |------+------.
- *                                |      |    |      |
- *                                `------'    `------'
- */
-[_SYM] = LAYOUT( \
-  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,\
-  _______, _______, _______, _______, _______,      KC_GRV,  KC_SCLN, KC_COLN, KC_LBRC, KC_RBRC,\
-  _______, _______, _______, _______, _______,      KC_TILD, KC_BSLS, KC_PIPE, KC_LCBR, KC_RCBR,\
-                    SFTHOM,  FUN,     KC_DEL,       _______, _______, SYM_LK                    \
+  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
+  SFT_A,   CTRL_S,  ALT_D,   GUI_F,   KC_G,         KC_H,    GUI_J,   ALT_K,   CTRL_L,  SFT_QOT, \
+  SYS_Z,   KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  SYS_SLH, \
+                    SFTHOM,  NUMEND,  NAV_BK,       NAV_SP,  SYMPGU,  SFTPGD                     \
 ),
 
 /* Number
@@ -179,6 +156,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     NUM_LK,  _______, _______,      KC_ENT,  FUN_0,   KC_DOT                     \
 ),
 
+/* Symbol
+ * Focus on one-handed use from tw1t611, symbol layer from oprietop's Lower
+ *
+ * ,----------------------------------.           ,----------------------------------.
+ * |   !  |   @  |   #  |   $  |   %  |           |   ^  |   &  |   *  |  (   |   )  |
+ * |------+------+------+------+------|           |------+------+------+------+------|
+ * |      |      |      |      |      |           |   `  |   ;  |   :  |  [   |   ]  |
+ * |------+------+------+------+------|           |------+------+------+------+------|
+ * |      |      |      |      |      |           |   ~  |   \  |   |  |  {   |   }  |
+ * `----------------------------------'           `----------------------------------'
+ *                  ,--------------------.    ,------,-------------.
+ *                  |SFTHOM|  FUN |      |    |      |      |SYM LK|
+ *                  `-------------|  DEL |    |      |------+------.
+ *                                |      |    |      |
+ *                                `------'    `------'
+ */
+[_SYM] = LAYOUT( \
+  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, \
+  _______, _______, _______, _______, _______,      KC_GRV,  KC_SCLN, KC_COLN, KC_LBRC, KC_RBRC, \
+  _______, _______, _______, _______, _______,      KC_TILD, KC_BSLS, KC_PIPE, KC_LCBR, KC_RCBR, \
+                    SFTHOM,  FUN,     KC_DEL,       _______, _______, SYM_LK                     \
+),
+
 /* Navigation + mouse keys
  *
  * ,----------------------------------.           ,----------------------------------.
@@ -189,8 +189,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | CAPS | LEFT | DOWN | RGHT | PGDN |           | WH D | MS L | MS D | MS R | SCRLK|
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
- *                  |      | CTRL |      |    |      | CTRL |      |
- *                  `------+------| SHIFT|    | SHIFT|------+------'
+ *                  | SHIFT| CTRL |      |    |      | CTRL | SHIFT|
+ *                  `------+------|      |    |      |------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
@@ -198,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  _______, _______, _______, NAV_LK,       KC_PAUS, KC_ACL0, KC_ACL1, KC_ACL2, KC_PSCR, \
   KC_TAB,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,      KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, KC_INS,  \
   KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,      KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_SLCK, \
-                    _______, KC_LCTL, KC_LSFT,      KC_RSFT, KC_RCTL,  _______                   \
+                    KC_LSFT, KC_LCTL, _______,      _______, KC_RCTL, KC_RSFT                    \
 ),
 
 /* System, media, and layer lock keys from dustypomerleau
@@ -217,10 +217,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_SYS] = LAYOUT( \
-  RESET,   DEBUG,   QWERTY,  _______, NAV_LK,        VOL_DN,  VOL_UP,  KC_MUTE, KC_VOLD, KC_VOLU,  \
-  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_BRIU,       _______, KC_MRWD, KC_MPLY, KC_MFFD, KC_POWER, \
-  _______, _______, _______, _______, KC_BRID,       _______, NUM_LK,  _______, _______, _______,  \
-                    NUM_LK,  _______, _______,       _______, _______, SYM_LK                      \
+  RESET,   DEBUG,   QWERTY,  _______, NAV_LK,        VOL_DN,  VOL_UP,  KC_MUTE, KC_VOLD, KC_VOLU,\
+  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_BRIU,       _______, KC_MRWD, KC_MPLY, KC_MFFD, _______,\
+  _______, _______, _______, _______, KC_BRID,       _______, NUM_LK,  _______, _______, _______,\
+                    NUM_LK,  _______, _______,       _______, _______, SYM_LK                    \
 ),
 
 /* FUN (Number + Symbol)
