@@ -1,8 +1,9 @@
 // dgroseph, Minidox keymap
-// Based on keymaps by dustypomerleau, oprietop, and tw1t611
+// Based on keymaps by dustypomerleau, oprietop, tw1t611, and combos from germ's gergoplex
 // Thanks for checking out my keymap. The rationale behind the layout is described in the README.
 
 #include QMK_KEYBOARD_H
+#include "combos.h" // Combos from germ
 
 extern keymap_config_t keymap_config;
 
@@ -108,6 +109,55 @@ enum custom_keycodes {
 #define SYS_SLH LT(_SYS, KC_SLSH)
 #define VOL_DN S(LALT(KC__VOLDOWN))
 #define VOL_UP S(LALT(KC__VOLUP))
+
+/* Combos on the base layer (or maybe all layers?)
+ * from germ's gergoplex
+ * NOTE: If you're using MT,LT or anything you must
+ * define it here. Note this if you change your layout!
+ *
+ * ,----------------------------------.           ,----------------------------------.
+ * |      |      |      |      |      |           |      |      |      |      |      |
+ * |------+------+------+------+------|           |------+------+------+------+------|
+ * |      |      |      |      |      |           |      |      |      |      |      |
+ * |------+------+------+------+------|           |------+------+------+------+------|
+ * |      |      |      |      |      |           |      |      |      |      |      |
+ * `----------------------------------'           `----------------------------------'
+ *                  ,--------------------.     ,------,-------------.
+ *                  |      |      |      |     |      |      |      |
+ *                  `-------------|      |     |      |------+------.
+ *                                |      |     |      |
+ *                                `------'     `------'
+ */
+combo_t key_combos[COMBO_COUNT] = {
+    // Horizontal 2-Chords
+
+    // QW,WE,ER,RT,YU,UI,IO,OP,
+    // AS,SD,DF,FG,HJ,JK,KL,LQ,
+    // ZX,XC,CV,VB,NM,MC,CD,DS,
+
+    // Vertical 2-Chords
+
+    // QA,WS,ED,RF,TG,YH,UJ,IK,OL,PQ,
+    // AZ,SX,DC,FV,GB,HN,JM,KC,LD,QS,
+
+    // Horizontal 3-Chords
+
+    // QWE,WER,ERT,YUI,UIO,IOP,
+    // ASD,SDF,DFG,HJK,JKL,KLQ,
+    // ZXC,XCV,CVB,NMC,MCD,CDS,
+
+    // Horizontal 4-Chords
+
+    // QWER,WERT,YUIO,UIOP,
+    // ASDF,SDFG,HJKL,JKLQ,
+    // ZXCV,XCVB,NMCD,MCDS,
+
+    // Split Chords
+
+    // SDJK
+
+    // [**] = COMBO(**_combo, KC_****),
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
