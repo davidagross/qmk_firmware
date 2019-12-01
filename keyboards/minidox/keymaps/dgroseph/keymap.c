@@ -90,7 +90,7 @@ enum custom_keycodes {
 #define MAC_EM S(LALT(KC_MINS))
 #define MAC_EN LALT(KC_MINS)
 #define NAV_BK LT(_NAV, KC_BSPC)
-#define NAV_SP LT(_NAV, KC_BSPC)
+#define NAV_SP LT(_NAV, KC_SPC)
 #define NAV_LK TG(_NAV)
 #define NUM_LK TG(_NUM)
 #define NUM_SPC LT(_NUM, KC_SPC)
@@ -116,10 +116,10 @@ enum custom_keycodes {
  * define it here. Note this if you change your layout!
  *
  * ,----------------------------------.           ,----------------------------------.
- * |      |      |      |      (      |           |      )      |      |      |      |
- * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |      |      [      |           |      ]      |      |      |      |
- * |------+------+------+------+------|           |------+------+------+------+------|
+ * |     ESC     |      |      (      |           |      )    BTN1    BTN2  BKSPC    |
+ * |------+------+--UP--+------+--DEL-|           |---:--+------+-MSUP-+------+------|
+ * |     TAB   LEFT    RGHT    [      |           |      ]    MSLF    MSRT  ENTER    |
+ * |------+------+--DN--+------+--SPC-|           |---;--+------+-MSDN-+------+------|
  * |      |      |      |      {      |           |      }      |      |      |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.     ,------,-------------.
@@ -131,23 +131,44 @@ enum custom_keycodes {
 combo_t key_combos[COMBO_COUNT] = {
     // Horizontal 2-Chords
 
-    // QW,WE,ER
+    [QW] = COMBO(qw_combo, KC_ESC),
+    // WE,ER,
     [RT] = COMBO(rt_combo, KC_LPRN),
     [YU] = COMBO(yu_combo, KC_RPRN),
-    // UI,IO,OP,
-    // AS,SD,DF
+    [UI] = COMBO(ui_combo, KC_BTN1),
+    [IO] = COMBO(io_combo, KC_BTN2),
+    [OP] = COMBO(op_combo, KC_BSPC),
+    [AS] = COMBO(as_combo, KC_TAB),
+    [SD] = COMBO(sd_combo, KC_LEFT),
+    [DF] = COMBO(df_combo, KC_RIGHT),
     [FG] = COMBO(fg_combo, KC_LBRC),
     [HJ] = COMBO(hj_combo, KC_RBRC),
-    // JK,KL,LQ,
-    // ZX,XC,CV
+    [JK] = COMBO(jk_combo, KC_MS_L),
+    [KL] = COMBO(kl_combo, KC_MS_R),
+    [LQ] = COMBO(lq_combo, KC_ENT),
+    // ZX, XC,CV,
     [VB] = COMBO(vb_combo, KC_LCBR),
     [NM] = COMBO(nm_combo, KC_RCBR),
     // MC,CD,DS,
 
     // Vertical 2-Chords
 
-    // QA,WS,ED,RF,TG,YH,UJ,IK,OL,PQ,
-    // AZ,SX,DC,FV,GB,HN,JM,KC,LD,QS,
+    // QA,WS,
+    [ED] = COMBO(ed_combo, KC_UP),
+    // RF,
+    [TG] = COMBO(tg_combo, KC_DEL),
+    [YH] = COMBO(yh_combo, KC_COLN),
+    // UJ,
+    [IK] = COMBO(ik_combo, KC_MS_U),
+    // OL,PQ,
+    // AZ,SX,
+    [DC] = COMBO(dc_combo, KC_DOWN),
+    // FV,
+    [GB] = COMBO(gb_combo, KC_SPC),
+    [HN] = COMBO(hn_combo, KC_SCLN),
+    // JM,
+    [KC] = COMBO(kc_combo, KC_MS_D),
+    // LD,QS,
 
     // Horizontal 3-Chords
 
