@@ -51,12 +51,12 @@ enum custom_keycodes {
 #define CTLRT RCTL(KC_RGHT)
 
 // Thumbs
-#define CTLHOM LCTL_T(KC_HOME)
+#define NAVHOM LT(_NAV, KC_HOME)
 #define NUMEND LT(_NUM, KC_END)
-#define NAV_BK LT(_NAV, KC_BSPC)
-#define NAV_SP LT(_NAV, KC_SPC)
+#define CTL_BK LCTL_T(KC_BSPC)
+#define SFT_SP RSFT_T(KC_SPC)
 #define SYMPGU LT(_SYM, KC_PGUP)
-#define SFTPGD RSFT_T(KC_PGDN)
+#define NAVPGD LT(_NAV, KC_PGDN)
 
 #define FUN_0 LT(_FUN, KC_0)
 
@@ -163,8 +163,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   Z  |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   /  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
- *                  |CTLHOM|NUMEND|      |    |      |SYMPGU|SFTPGD|
- *                  `-------------| NAVBK|    | NAVSP|------+------.
+ *                  |NAVHOM|NUMEND|      |    |      |SYMPGU|NAVPGD|
+ *                  `-------------| CTLBK|    | SFTSP|------+------.
  *                                |      |    |      |
  *                                `------'    `------'
  */
@@ -172,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,         KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, \
   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, \
-                    CTLHOM,  NUMEND,  NAV_BK,       NAV_SP,  SYMPGU,  SFTPGD                     \
+                    NAVHOM,  NUMEND,  CTL_BK,       SFT_SP,  SYMPGU,  NAVPGD                     \
 ),
 
 /* NUM
@@ -232,8 +232,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | CAPS | LEFT | DOWN | RGHT | PGDN |           | WH D | MS L | MS D | MS R | SCRLK|
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
- *                  |NUM LK|NAV LK|      |    |      |SYS LK|SYM LK|
- *                  `------+------|  SYS |    |  SYS |------+------'
+ *                  |  SYS |NUM LK|      |    |      |SYM LK|  SYS |
+ *                  `------+------|NAV LK|    |SYS LK|------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
@@ -241,22 +241,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  _______, _______, _______, _______,      KC_PAUS, KC_ACL0, KC_ACL1, KC_ACL2, KC_PSCR, \
   KC_TAB,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,      KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, KC_INS,  \
   KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,      KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_SLCK, \
-                    NUM_LK,  NAV_LK,  SYS,          SYS,     SYS_LK,  SYM_LK                     \
+                    SYS,     NUM_LK,  NAV_LK,       SYS_LK,  SYM_LK,  SYS                        \
 ),
 
 /* SYS (NAV + NAV)
  * System, media, and layer lock keys from dustypomerleau
  *
  * ,----------------------------------.           ,----------------------------------.
- * | RESET| DEBUG|QWERTY|      |      |           | VOL--| VOL- | MUTE | VOL+ | VOL++|
+ * | RESET| DEBUG|QWERTY|      |      |           | VOL- | VOL--| MUTE | VOL++| VOL+ |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * | SHIFT| CTRL |  ALT |  GUI |BRITE+|           |      | MRWD | MPLY | MFFD | POWER|
  * |------+------+------+------+------|           | -----+------+------+------+------|
  * |      |      |      |      |BRITE-|           |      |      |      |      |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
- *                  |NUM LK|NAV LK|      |    |      |SYS LK|SYM LK|
- *                  `-------------|      |    |      |------+------.
+ *                  |      |NUM LK|      |    |      |SYM LK|      |
+ *                  `-------------|NAV LK|    |SYS LK|------+------.
  *                                |      |    |      |
  *                                `------'    `------'
  */
@@ -264,7 +264,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RESET,   DEBUG,   QWERTY,  _______, _______,       KC_VOLD, VOL_DN,  KC_MUTE, VOL_UP,  KC_VOLU,\
   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_BRIU,       _______, KC_MRWD, KC_MPLY, KC_MFFD, _______,\
   _______, _______, _______, _______, KC_BRID,       _______, _______, _______, _______, _______,\
-                    NUM_LK,  NAV_LK,  _______,       _______, SYS_LK,  SYM_LK                    \
+                    _______, NUM_LK,  NAV_LK,        SYS_LK,  SYM_LK,  _______                   \
 ),
 
 /* FUN (NUM + SYM)
