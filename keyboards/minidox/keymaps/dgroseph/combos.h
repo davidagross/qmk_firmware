@@ -2,32 +2,32 @@
 
 enum combos {
 
-	// Horizontal 2-Chords
+	// Horizontal 2-Chords (3 * 8 = 24)
 
 	QW,WE,ER,RT,YU,UI,IO,OP,
 	AS,SD,DF,FG,HJ,JK,KL,LQ,
 	ZX,XC,CV,VB,NM,MC,CD,DS,
 
-	// Vertical 2-Chords
+	// Vertical 2-Chords ( + 2 * 10 = 44)
 
 	QA,WS,ED,RF,TG,YH,UJ,IK,OL,PQ,
 	AZ,SX,DC,FV,GB,HN,JM,KC,LD,QS,
 
-	// Horizontal 3-Chords
+	// Horizontal 3-Chords (+ 3 * 6 = 62)
 
 	QWE,WER,ERT,YUI,UIO,IOP,
 	ASD,SDF,DFG,HJK,JKL,KLQ,
 	ZXC,XCV,CVB,NMC,MCD,CDS,
 
-	// Horizontal 4-Chords
+	// Horizontal 4-Chords (+ 3 * 4 = 74)
 
 	QWER,WERT,YUIO,UIOP,
 	ASDF,SDFG,HJKL,JKLQ,
 	ZXCV,XCVB,NMCD,MCDS,
 
-	// Split Chords
+	// Split Chords (+ 1 = 75)
 
-	SDJK
+	SDJK,
 };
 
 // Horizontal 2-Chords
