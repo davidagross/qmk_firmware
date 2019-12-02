@@ -34,14 +34,24 @@ enum custom_keycodes {
 // Shortcuts
 #define FUN MO(_FUN)
 #define SYS MO(_SYS)
+
 #define CALTDEL LCTL(LALT(KC_DEL))
 #define TSKMGR LCTL(LSFT(KC_ESC))
+
 #define COPY LCTL(KC_INS)
 #define CUT LSFT(KC_DEL)
 #define PASTE RSFT(KC_INS)
 
+#define GUIUP RGUI(KC_UP)
+#define GUIDN RGUI(KC_DOWN)
+#define GUILT RGUI(KC_LEFT)
+#define GUIRT RGUI(KC_RGHT)
+
+#define CTLLT LCTL(KC_LEFT)
+#define CTLRT RCTL(KC_RGHT)
+
 // Thumbs
-#define SFTHOM LSFT_T(KC_HOME)
+#define CTLHOM LCTL_T(KC_HOME)
 #define NUMEND LT(_NUM, KC_END)
 #define NAV_BK LT(_NAV, KC_BSPC)
 #define NAV_SP LT(_NAV, KC_SPC)
@@ -153,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   Z  |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   /  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
- *                  |SFTHOM|NUMEND|      |    |      |SYMPGU|SFTPGD|
+ *                  |CTLHOM|NUMEND|      |    |      |SYMPGU|SFTPGD|
  *                  `-------------| NAVBK|    | NAVSP|------+------.
  *                                |      |    |      |
  *                                `------'    `------'
@@ -162,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,         KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, \
   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, \
-                    SFTHOM,  NUMEND,  NAV_BK,       NAV_SP,  SYMPGU,  SFTPGD                     \
+                    CTLHOM,  NUMEND,  NAV_BK,       NAV_SP,  SYMPGU,  SFTPGD                     \
 ),
 
 /* NUM
@@ -194,9 +204,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.           ,----------------------------------.
  * |   !  |   @  |   #  |   $  |   %  |           |   ^  |   &  |   *  |  (   |   )  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |      |      |      |           |   `  |   ;  |   :  |  [   |   ]  |
+ * |      | CTLLT| GUIUP| CTLRT|      |           |   `  |   ;  |   :  |  [   |   ]  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |      |      |      |           |   ~  |   \  |   |  |  {   |   }  |
+ * |      | GUILT| GUIDN| GUIRT|      |           |   ~  |   \  |   |  |  {   |   }  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
  *                  |NUM LK|  FUN |      |    |      |      |SYM LK|
@@ -206,8 +216,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYM] = LAYOUT( \
   KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, \
-  _______, _______, _______, _______, _______,      KC_GRV,  KC_SCLN, KC_COLN, KC_LBRC, KC_RBRC, \
-  _______, _______, _______, _______, _______,      KC_TILD, KC_BSLS, KC_PIPE, KC_LCBR, KC_RCBR, \
+  _______, CTLLT,   GUIUP,   CTLRT,   _______,      KC_GRV,  KC_SCLN, KC_COLN, KC_LBRC, KC_RBRC, \
+  _______, GUILT,   GUIDN,   GUIRT,   _______,      KC_TILD, KC_BSLS, KC_PIPE, KC_LCBR, KC_RCBR, \
                     NUM_LK,  FUN,     KC_DEL,       _______, _______, SYM_LK                     \
 ),
 
