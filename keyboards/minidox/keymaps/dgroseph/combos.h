@@ -59,7 +59,7 @@ const uint16_t PROGMEM vb_combo[] = {KC_V, KC_B, COMBO_END};
 
 const uint16_t PROGMEM nm_combo[] = {KC_N, KC_M, COMBO_END};
 const uint16_t PROGMEM mc_combo[] = {KC_M, KC_COMM, COMBO_END};
-const uint16_t PROGMEM cp_combo[] = {KC_COMM, KC_DOT, COMBO_END};
+const uint16_t PROGMEM cd_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM ds_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
 
 // Vertical 2-Chords

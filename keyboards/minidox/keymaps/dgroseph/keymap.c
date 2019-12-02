@@ -29,84 +29,32 @@ enum custom_keycodes {
   FUN,
 };
 
-// Shortcuts, Mod-Taps, and Thumbs skeleton from oprietop
+// Shortcuts and Thumbs skeleton from oprietop
 
 // Shortcuts
 #define FUN MO(_FUN)
+#define SYS MO(_SYS)
 #define CALTDEL LCTL(LALT(KC_DEL))
 #define TSKMGR LCTL(LSFT(KC_ESC))
 #define COPY LCTL(KC_INS)
 #define CUT LSFT(KC_DEL)
 #define PASTE RSFT(KC_INS)
 
-// Mod-Taps
-// https://github.com/qmk/qmk_firmware/blob/master/docs/feature_advanced_keycodes.md
-#define LST(X) LSFT_T(X)
-#define RST(X) RSFT_T(X)
-#define LCT(X) LCTL_T(X)
-#define RCT(X) RCTL_T(X)
-#define LGT(X) LGUI_T(X)
-#define RGT(X) RGUI_T(X)
-#define TAT(X) LALT_T(X)
-#define AGT(X) RALT_T(X)
-
 // Thumbs
 #define SFTHOM LSFT_T(KC_HOME)
 #define NUMEND LT(_NUM, KC_END)
-// #define CTRBSP CTL_T(KC_BSPC)
-// #define CTRSPC CTL_T(KC_SPC)
+#define NAV_BK LT(_NAV, KC_BSPC)
+#define NAV_SP LT(_NAV, KC_SPC)
 #define SYMPGU LT(_SYM, KC_PGUP)
 #define SFTPGD RSFT_T(KC_PGDN)
 
 #define FUN_0 LT(_FUN, KC_0)
 
-// Home-row  mod-taps from dustypomerleau
-#define ALT_2 LALT_T(KC_2)
-#define ALT_3 LALT_T(KC_3)
-#define ALT_8 LALT_T(KC_8)
-#define ALT_D LALT_T(KC_D)
-#define ALT_E LALT_T(KC_E)
-#define ALT_K LALT_T(KC_K)
-#define ALT_LB LALT_T(KC_LBRC)
-#define ALT_S LALT_T(KC_S)
-#define CTRL_2 LCTL_T(KC_2)
-#define CTRL_4 LCTL_T(KC_4)
-#define CTRL_5 LCTL_T(KC_5)
-#define CTRL_9 LCTL_T(KC_9)
-#define CTRL_EQ LCTL_T(KC_EQL)
-#define CTRL_I LCTL_T(KC_I)
-#define CTRL_L LCTL_T(KC_L)
-#define CTRL_R LCTL_T(KC_R)
-#define CTRL_S LCTL_T(KC_S)
-#define GUI_0 LGUI_T(KC_0)
-#define GUI_1 LGUI_T(KC_1)
-#define GUI_4 LGUI_T(KC_4)
-#define GUI_7 LGUI_T(KC_7)
-#define GUI_RB LGUI_T(KC_RBRC)
-#define GUI_F LGUI_T(KC_F)
-#define GUI_J LGUI_T(KC_J)
-#define GUI_N LGUI_T(KC_N)
-#define GUI_TEA LGUI_T(KC_T)
-#define MAC_EM S(LALT(KC_MINS))
-#define MAC_EN LALT(KC_MINS)
-#define NAV_BK LT(_NAV, KC_BSPC)
-#define NAV_SP LT(_NAV, KC_SPC)
+// some mod-taps from dustypomerleau
 #define NAV_LK TG(_NAV)
 #define NUM_LK TG(_NUM)
-#define NUM_SPC LT(_NUM, KC_SPC)
-#define SFT_0 LSFT_T(KC_0)
-#define SFT_1 LSFT_T(KC_1)
-#define SFT_6 LSFT_T(KC_6)
-#define SFT_7 LSFT_T(KC_7)
-#define SFT_A LSFT_T(KC_A)
-#define SFT_O LSFT_T(KC_O)
-#define SFT_OS OSM(MOD_LSFT)
-#define SFT_QOT LSFT_T(KC_QUOT)
 #define SYM_LK TG(_SYM)
-#define SYM_OS OSL(_SYM)
 #define SYS_LK TG(_SYS)
-#define SYS_Z LT(_SYS, KC_Z)
-#define SYS_SLH LT(_SYS, KC_SLSH)
 #define VOL_DN S(LALT(KC__VOLDOWN))
 #define VOL_UP S(LALT(KC__VOLUP))
 
@@ -117,10 +65,10 @@ enum custom_keycodes {
  *
  * ,----------------------------------.           ,----------------------------------.
  * |     ESC     |      |      (      |           |      )    BTN1    BTN2  BKSPC    |
- * |------+------+--UP--+------+--DEL-|           |---:--+------+-MSUP-+------+------|
+ * |------+------+--UP--+---{--+--DEL-|           |---:--+--}---+-MSUP-+------+------|
  * |     TAB   LEFT    RGHT    [      |           |      ]    MSLF    MSRT  ENTER    |
  * |------+------+--DN--+------+--SPC-|           |---;--+------+-MSDN-+------+------|
- * |      |      |      |      {      |           |      }      |      |      |      |
+ * |    SHIFT  CTRL    ALT    GUI     |           |     GUI    ALT    CTRL  SHIFT    |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.     ,------,-------------.
  *                  |      |      |      |     |      |      |      |
@@ -146,19 +94,23 @@ combo_t key_combos[COMBO_COUNT] = {
     [JK] = COMBO(jk_combo, KC_MS_L),
     [KL] = COMBO(kl_combo, KC_MS_R),
     [LQ] = COMBO(lq_combo, KC_ENT),
-    // ZX, XC,CV,
-    [VB] = COMBO(vb_combo, KC_LCBR),
-    [NM] = COMBO(nm_combo, KC_RCBR),
-    // MC,CD,DS,
+    [ZX] = COMBO(zx_combo, KC_LSFT),
+    [XC] = COMBO(xc_combo, KC_LCTL),
+    [CV] = COMBO(cv_combo, KC_LALT),
+    [VB] = COMBO(vb_combo, KC_LGUI),
+    [NM] = COMBO(nm_combo, KC_RGUI),
+    [MC] = COMBO(mc_combo, KC_RALT),
+    [CD] = COMBO(cd_combo, KC_RCTL),
+    [DS] = COMBO(ds_combo, KC_RSFT),
 
     // Vertical 2-Chords
 
     // QA,WS,
     [ED] = COMBO(ed_combo, KC_UP),
-    // RF,
+    [RF] = COMBO(rf_combo, KC_LCBR),
     [TG] = COMBO(tg_combo, KC_DEL),
     [YH] = COMBO(yh_combo, KC_COLN),
-    // UJ,
+    [UJ] = COMBO(uj_combo, KC_RCBR),
     [IK] = COMBO(ik_combo, KC_MS_U),
     // OL,PQ,
     // AZ,SX,
@@ -191,14 +143,14 @@ combo_t key_combos[COMBO_COUNT] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Qwerty
+/* QWERTY
  *
  * ,----------------------------------.           ,----------------------------------.
  * |   Q  |   W  |   E  |   R  |   T  |           |   Y  |   U  |   I  |   O  |   P  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * | SFT/A| CTL/S| ALT/D| GUI/F|   G  |           |   H  | GUI/J| ALT/K| CTL/L| SFT/'|
+ * |   A  |   S  |   D  |   F  |   G  |           |   H  |   J  |   K  |   L  |   '  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * | SYS/Z|   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |SYS/SL|
+ * |   Z  |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   /  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
  *                  |SFTHOM|NUMEND|      |    |      |SYMPGU|SFTPGD|
@@ -208,13 +160,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = LAYOUT( \
   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
-  SFT_A,   CTRL_S,  ALT_D,   GUI_F,   KC_G,         KC_H,    GUI_J,   ALT_K,   CTRL_L,  SFT_QOT, \
-  SYS_Z,   KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  SYS_SLH, \
+  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,         KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, \
+  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, \
                     SFTHOM,  NUMEND,  NAV_BK,       NAV_SP,  SYMPGU,  SFTPGD                     \
 ),
 
-/* Number
- * Focus on one-handed use and numpad on right from tw1t611
+/* NUM
+ * Number - Focus on one-handed use and numpad on right from tw1t611
  *
  * ,----------------------------------.           ,----------------------------------.
  * |   1  |   2  |   3  |   4  |   5  |           |   6  |   7  |   8  |   9  |   0  |
@@ -236,8 +188,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     NUM_LK,  _______, _______,      KC_ENT,  FUN_0,   KC_DOT                     \
 ),
 
-/* Symbol
- * Focus on one-handed use from tw1t611, symbol layer from oprietop's Lower
+/* SYM
+ * Symbol - Focus on one-handed use from tw1t611, symbol layer from oprietop's Lower
  *
  * ,----------------------------------.           ,----------------------------------.
  * |   !  |   @  |   #  |   $  |   %  |           |   ^  |   &  |   *  |  (   |   )  |
@@ -247,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |           |   ~  |   \  |   |  |  {   |   }  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
- *                  |SFTHOM|  FUN |      |    |      |      |SYM LK|
+ *                  |NUM LK|  FUN |      |    |      |      |SYM LK|
  *                  `-------------|  DEL |    |      |------+------.
  *                                |      |    |      |
  *                                `------'    `------'
@@ -256,54 +208,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, \
   _______, _______, _______, _______, _______,      KC_GRV,  KC_SCLN, KC_COLN, KC_LBRC, KC_RBRC, \
   _______, _______, _______, _______, _______,      KC_TILD, KC_BSLS, KC_PIPE, KC_LCBR, KC_RCBR, \
-                    SFTHOM,  FUN,     KC_DEL,       _______, _______, SYM_LK                     \
+                    NUM_LK,  FUN,     KC_DEL,       _______, _______, SYM_LK                     \
 ),
 
-/* Navigation + mouse keys
+/* NAV
+ * Navigation + mouse keys
  *
  * ,----------------------------------.           ,----------------------------------.
- * |  ESC |      |      |      |NAV LK|           | PAUSE| ACL0 | ACL1 | ACL2 | PSCR |
+ * |  ESC |      |      |      |      |           | PAUSE| ACL0 | ACL1 | ACL2 | PSCR |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |  TAB | HOME |  UP  |  END | PGUP |           | WH U | BTN1 | MS U | BTN2 |  INS |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * | CAPS | LEFT | DOWN | RGHT | PGDN |           | WH D | MS L | MS D | MS R | SCRLK|
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
- *                  | SHIFT| CTRL |      |    |      | CTRL | SHIFT|
- *                  `------+------|  GUI |    |  GUI |------+------'
+ *                  |NUM LK|NAV LK|      |    |      |SYS LK|SYM LK|
+ *                  `------+------|  SYS |    |  SYS |------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
 [_NAV] = LAYOUT( \
-  KC_ESC,  _______, _______, _______, NAV_LK,       KC_PAUS, KC_ACL0, KC_ACL1, KC_ACL2, KC_PSCR, \
+  KC_ESC,  _______, _______, _______, _______,      KC_PAUS, KC_ACL0, KC_ACL1, KC_ACL2, KC_PSCR, \
   KC_TAB,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,      KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, KC_INS,  \
   KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,      KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_SLCK, \
-                    KC_LSFT, KC_LCTL, KC_LGUI,      KC_RGUI,  KC_RCTL, KC_RSFT                    \
+                    NUM_LK,  NAV_LK,  SYS,          SYS,     SYS_LK,  SYM_LK                     \
 ),
 
-/* System, media, and layer lock keys from dustypomerleau
+/* SYS (NAV + NAV)
+ * System, media, and layer lock keys from dustypomerleau
  *
  * ,----------------------------------.           ,----------------------------------.
- * | RESET| DEBUG|QWERTY|      |NAV LK|           | VOL- | VOL+ | MUTE | VOL--| VOL++|
+ * | RESET| DEBUG|QWERTY|      |      |           | VOL--| VOL- | MUTE | VOL+ | VOL++|
  * |------+------+------+------+------|           |------+------+------+------+------|
  * | SHIFT| CTRL |  ALT |  GUI |BRITE+|           |      | MRWD | MPLY | MFFD | POWER|
  * |------+------+------+------+------|           | -----+------+------+------+------|
- * |      |      |      |      |BRITE-|           |      |NUM LK|      |      |      |
+ * |      |      |      |      |BRITE-|           |      |      |      |      |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
- *                  |NUM LK|      |      |    |      |      |SYM LK|
+ *                  |NUM LK|NAV LK|      |    |      |SYS LK|SYM LK|
  *                  `-------------|      |    |      |------+------.
  *                                |      |    |      |
  *                                `------'    `------'
  */
 [_SYS] = LAYOUT( \
-  RESET,   DEBUG,   QWERTY,  _______, NAV_LK,        VOL_DN,  VOL_UP,  KC_MUTE, KC_VOLD, KC_VOLU,\
+  RESET,   DEBUG,   QWERTY,  _______, _______,       VOL_DN,  KC_VOLD, KC_MUTE, VOL_UP,  KC_VOLU,\
   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_BRIU,       _______, KC_MRWD, KC_MPLY, KC_MFFD, _______,\
-  _______, _______, _______, _______, KC_BRID,       _______, NUM_LK,  _______, _______, _______,\
-                    NUM_LK,  _______, _______,       _______, _______, SYM_LK                    \
+  _______, _______, _______, _______, KC_BRID,       _______, _______, _______, _______, _______,\
+                    NUM_LK,  NAV_LK,  _______,       _______, SYS_LK,  SYM_LK                    \
 ),
 
-/* FUN (Number + Symbol)
+/* FUN (NUM + SYM)
  *
  * ,----------------------------------.           ,----------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |           |  F6  |  F7  |  F8  |  F9  |  F10 |
