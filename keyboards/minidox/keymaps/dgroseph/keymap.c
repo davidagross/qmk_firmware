@@ -251,9 +251,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * System, media, and layer lock keys from dustypomerleau
  *
  * ,----------------------------------.           ,----------------------------------.
- * | RESET| DEBUG|QWERTY|      |      |           | VOL- | VOL--| MUTE | VOL++| VOL+ |
+ * | RESET| DEBUG|QWERTY|      |      |           | VOL- | VOL+ | MUTE | VOL--| VOL++|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * | SHIFT| CTRL |  ALT |  GUI |BRITE+|           |      | MRWD | MPLY | MFFD | POWER|
+ * | SHIFT| CTRL |  ALT |  GUI |BRITE+|           |      | MRWD | MPLY | MFFD |      |
  * |------+------+------+------+------|           | -----+------+------+------+------|
  * |      |      |      |      |BRITE-|           |      |      |      |      |      |
  * `----------------------------------'           `----------------------------------'
@@ -264,7 +264,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_SYS] = LAYOUT( \
-  RESET,   DEBUG,   QWERTY,  _______, _______,       KC_VOLD, VOL_DN,  KC_MUTE, VOL_UP,  KC_VOLU,\
+  RESET,   DEBUG,   QWERTY,  _______, _______,       VOL_DN,  VOL_UP,  KC_MUTE, KC_VOLD, KC_VOLU,\
   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_BRIU,       _______, KC_MRWD, KC_MPLY, KC_MFFD, _______,\
   _______, _______, _______, _______, KC_BRID,       _______, _______, _______, _______, _______,\
                     _______, NUM_LK,  NAV_LK,        SYS_LK,  SYM_LK,  _______                   \
