@@ -27,6 +27,7 @@ enum custom_keycodes {
   NAV,
   SYS,
   FUN,
+  CTLCTV
 };
 
 // Shortcuts and Thumbs skeleton from oprietop
@@ -225,7 +226,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Navigation + mouse keys
  *
  * ,----------------------------------.           ,----------------------------------.
- * |  ESC |      |      |      |      |           | PAUSE| ACL0 | ACL1 | ACL2 | PSCR |
+ * |  ESC |      |CTLCTV|      |      |           | PAUSE| ACL0 | ACL1 | ACL2 | PSCR |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |  TAB | HOME |  UP  |  END | PGUP |           | WH U | BTN1 | MS U | BTN2 |  INS |
  * |------+------+------+------+------|           |------+------+------+------+------|
@@ -238,7 +239,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_NAV] = LAYOUT( \
-  KC_ESC,  _______, _______, _______, _______,      KC_PAUS, KC_ACL0, KC_ACL1, KC_ACL2, KC_PSCR, \
+  KC_ESC,  _______, CTLCTV, _______, _______,      KC_PAUS, KC_ACL0, KC_ACL1, KC_ACL2, KC_PSCR, \
   KC_TAB,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,      KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, KC_INS,  \
   KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,      KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_SLCK, \
                     SYS,     NUM_LK,  NAV_LK,       SYS_LK,  SYM_LK,  SYS                        \
@@ -331,6 +332,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_FUN);
       } else {
         layer_off(_FUN);
+      }
+      return false;
+      break;
+    case CTLCTV:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTRL("ctv")SS_TAP(X_ENT)); // copies, opens new tab, pastes, and enters
       }
       return false;
       break;
