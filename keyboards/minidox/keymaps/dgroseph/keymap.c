@@ -27,10 +27,14 @@ enum custom_keycodes {
   NAV,
   SYS,
   FUN,
-  ALTTAB,
+  NAVHOM,
+  NAVPGD,
   CTLCTV,
+  ALTTAB,
   SFALTB
 };
+bool is_alt_tab_active = false;
+uint16_t bespoke_tap_timer = 0;
 
 // Shortcuts and Thumbs skeleton from oprietop
 
@@ -39,7 +43,7 @@ enum custom_keycodes {
 #define SYS MO(_SYS)
 
 #define CALTDEL LCTL(LALT(KC_DEL))
-#define TSKMGR LCTL(LSFT(KC_ESC))
+#define TSKMGR LCTL(LSFT(KC_ESC)) 
 
 #define COPY LCTL(KC_INS)
 #define CUT LSFT(KC_DEL)
@@ -54,12 +58,12 @@ enum custom_keycodes {
 #define CTLRT RCTL(KC_RGHT)
 
 // Thumbs
-#define NAVHOM LT(_NAV, KC_HOME)
+// #define NAVHOM LT(_NAV, KC_HOME) // these are now in process_record_user to ...
 #define NUMEND LT(_NUM, KC_END)
 #define CTL_BK LCTL_T(KC_BSPC)
 #define SFT_SP RSFT_T(KC_SPC)
 #define SYMPGU LT(_SYM, KC_PGUP)
-#define NAVPGD LT(_NAV, KC_PGDN)
+// #define NAVPGD LT(_NAV, KC_PGDN) // ... unregister ALT on release for ALTTAB
 
 #define FUN_0 LT(_FUN, KC_0)
 
@@ -340,6 +344,76 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CTLCTV:
       if (record->event.pressed) {
         SEND_STRING(SS_LCTRL("ctv")SS_TAP(X_ENT)); // copies, opens new tab, pastes, and enters
+      }
+      return false;
+      break;
+    // NAVHOM and NAVPGD modified from http://blog.hgao.net/post/qmk-mod-key/ because i'm afraid to tap-dance
+    case NAVHOM:
+      if (record->event.pressed) {
+        // Records press timer
+        bespoke_tap_timer = timer_read();
+        // turn on the NAV layer
+        layer_on(_NAV);
+      } else if (is_alt_tab_active) {
+        // turn off the NAV layer
+        layer_off(_NAV);
+        // deactivate alt-tab
+        is_alt_tab_active = false;
+        unregister_code(KC_LALT);
+      } else if (timer_elapsed(bespoke_tap_timer) < TAPPING_TERM) {
+        // turn off the NAV layer
+        layer_off(_NAV);
+        // Sends out 'home' if the key is held for less than tapping term 
+        tap_code(KC_HOME);
+      } else {
+        // turn off the NAV layer
+        layer_off(_NAV);
+      } 
+      return false;
+      break;
+    case NAVPGD:
+      if (record->event.pressed) {
+        // Records press time.
+        bespoke_tap_timer = timer_read();
+        // turn on the NAV layer
+        layer_on(_NAV);
+      } else if (is_alt_tab_active) {
+        // turn off the NAV layer
+        layer_off(_NAV);
+        // deactivate alt-tab
+        is_alt_tab_active = false;
+        unregister_code(KC_LALT);
+      } else if (timer_elapsed(bespoke_tap_timer) < TAPPING_TERM) {
+        // turn off the NAV layer
+        layer_off(_NAV);
+        // Sends out 'pgdn' if the key is held for less than tapping term 
+        tap_code(KC_PGDN);
+      } else {
+        // turn off the NAV layer
+        layer_off(_NAV);
+      } 
+      return false;
+      break;
+    // modified from https://beta.docs.qmk.fm/features/feature_macros#super-alt-tab
+    case ALTTAB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        }
+        tap_code(KC_TAB);
+      }
+      return false;
+      break;
+    case SFALTB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        } 
+        register_code(KC_LSFT);
+        tap_code(KC_TAB);
+        unregister_code(KC_LSFT);
       }
       return false;
       break;
