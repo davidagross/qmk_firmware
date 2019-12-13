@@ -16,7 +16,7 @@ This is a QWERTY minidox training layout merging my favorite features of
 | SYM | Gotta have the symbols, with some extra NAV sprinkling in there |
 | NAV | A lot of movement options.  A bit crowded and could use some more adjustments, but very happy with the ALT-TAB macro |
 | FUN | super fun |
-| SYS |  |
+| SYS | QMK can do so much more than just type! |
 
 ## QWERTY
 
@@ -221,3 +221,5 @@ To squeeze another layer into two thumbs with 6 keys that keeps HHA in mind whil
  *                                `------'    `------'
  */
  ```
+ ## Feedback
+ Please let me know if you try out this layout!  I'd love to hear about your use cases that relate to fast typing and coding in .NET.  You can find me at [/u/dgroseph](https://www.reddit.com/u/dgroseph), [@dgroseph](https://www.twitter.com/dgroseph), and [@davidagross](https://www.github.com/davidagross) here.
