@@ -75,8 +75,8 @@ uint16_t bespoke_tap_timer = 0;
 #define VOL_DN S(LALT(KC__VOLDOWN))
 #define VOL_UP S(LALT(KC__VOLUP))
 
-/* Combos on the base layer (or maybe all layers?)
- * from germ's gergoplex
+/* Combos on the base layer
+ * inspired by germ's gergoplex layout
  * NOTE: If you're using MT,LT or anything you must
  * define it here. Note this if you change your layout!
  *
