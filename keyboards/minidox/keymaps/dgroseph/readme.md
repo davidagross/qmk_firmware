@@ -55,7 +55,7 @@ The methodology here is
 * `quote` and `double quote` are great but as a software developer, I need `colon` and `semicolon` and the bracing nearby as wel--so put those at the index fingers in the remaining places that make sense.
 
  ```
- /* Combos on the base layer
+/* Combos on the base layer
  * inspired by germ's gergoplex layout
  *
  * ,----------------------------------.           ,----------------------------------.
@@ -84,7 +84,7 @@ The methodology here is
 and we should access this layer with the left thumb because the right will be dancing around on the tenkey. 
 
  ```
- * NUM
+/* NUM
  * Number - Focus on one-handed use and numpad on right from tw1t611
  *
  * ,----------------------------------.           ,----------------------------------.
@@ -113,7 +113,7 @@ The methodology here is:
 Also, we should access this layer with the opposite thumb of NUM because these often go together in the breaks between numbers.
 
 ```
- /* SYM
+/* SYM
  * Symbol - Focus on one-handed use from tw1t611, symbol layer from oprietop's Lower
  *
  * ,----------------------------------.           ,----------------------------------.
@@ -147,13 +147,13 @@ The latter is cute, the former was very interesting.  The [Super ALT↯TAB](http
 NAV could be done from either hand, so put a layer trigger for it on each hand.
 
 ```
- /* NAV
+/* NAV
  * Navigation + mouse keys
  *
  * ,----------------------------------.           ,----------------------------------.
- * |  ESC |SFALTB|CTLCTV|ALTTAB|      |           | PAUSE| ACL0 | ACL1 | ACL2 | PSCR |
+ * |  ESC |SFALTB|CTLCTV|ALTTAB|      |           |  INS | ACL0 | ACL1 | ACL2 | PSCR |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |  TAB | HOME |  UP  |  END | PGUP |           | WH U | BTN1 | MS U | BTN2 |  INS |
+ * |  TAB | HOME |  UP  |  END | PGUP |           | WH U | BTN1 | MS U | BTN2 | PAUSE|
  * |------+------+------+------+------|           |------+------+------+------+------|
  * | CAPS | LEFT | DOWN | RGHT | PGDN |           | WH D | MS L | MS D | MS R | SCRLK|
  * `----------------------------------'           `----------------------------------'
@@ -176,7 +176,7 @@ NAV could be done from either hand, so put a layer trigger for it on each hand.
  Having the NUM and SYM thumbs trigger FUN is a nice way to get more layers out of just 6 keys on two thumbs, while keeping some symmetry.  The SFT and CTL from the thumbs should carry over here, as should the QWERTY combo mods, which are all part of the holistic hand-agnosticism (HHA (R)(C)(TM)) as an ideal.
 
  ```
- /* FUN (NUM + SYM)
+/* FUN (NUM + SYM)
  *
  * ,----------------------------------.           ,----------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |           |  F6  |  F7  |  F8  |  F9  |  F10 |
@@ -204,7 +204,7 @@ To squeeze another layer into two thumbs with 6 keys that keeps HHA in mind whil
  Here we have a lot of room for more power to this keyboard layout, which is very exciting.  For now, make sure we can pause without being in the app and reset the keyboard to flash the next exciting version of the firmware.
 
  ```
- /* SYS (NAV + NAV)
+/* SYS (NAV + NAV)
  * System, media, and layer lock keys from dustypomerleau
  *
  * ,----------------------------------.           ,----------------------------------.

@@ -22,18 +22,25 @@ enum custom_layers {
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
-  NUM,
-  SYM,
-  NAV,
+  NUMEND,
+  SYMPGU,
   SYS,
   FUN,
   NAVHOM,
   NAVPGD,
   CTLCTV,
   ALTTAB,
-  SFALTB
+  SFALTB,
+  NAV_LK,
+  NUM_LK,
+  SYM_LK,
+  SYS_LK
 };
 bool is_alt_tab_active = false;
+bool is_navlock_active = false;
+bool is_numlock_active = false;
+bool is_symlock_active = false;
+bool is_syslock_active = false;
 uint16_t bespoke_tap_timer = 0;
 
 // Shortcuts and Thumbs skeleton from oprietop
@@ -59,19 +66,19 @@ uint16_t bespoke_tap_timer = 0;
 
 // Thumbs
 // #define NAVHOM LT(_NAV, KC_HOME) // these are now in process_record_user to ...
-#define NUMEND LT(_NUM, KC_END)
+// #define NUMEND LT(_NUM, KC_END)  // and these are now in process_record_user to >>>
 #define CTL_BK LCTL_T(KC_BSPC)
 #define SFT_SP RSFT_T(KC_SPC)
-#define SYMPGU LT(_SYM, KC_PGUP)
+// #define SYMPGU LT(_SYM, KC_PGUP) // <<< be able to keep the layer on after the momentary with a lock
 // #define NAVPGD LT(_NAV, KC_PGDN) // ... unregister ALT on release for ALTTAB
 
 #define FUN_0 LT(_FUN, KC_0)
 
 // some mod-taps from dustypomerleau
-#define NAV_LK TG(_NAV)
-#define NUM_LK TG(_NUM)
-#define SYM_LK TG(_SYM)
-#define SYS_LK TG(_SYS)
+// #define NAV_LK TG(_NAV) // these are now in process_record_user to ... 
+// #define NUM_LK TG(_NUM) // ...
+// #define SYM_LK TG(_SYM) // ...
+// #define SYS_LK TG(_SYS) // ... work properly independent of the layer from which they are pressed
 #define VOL_DN S(LALT(KC__VOLDOWN))
 #define VOL_UP S(LALT(KC__VOLUP))
 
@@ -232,9 +239,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Navigation + mouse keys
  *
  * ,----------------------------------.           ,----------------------------------.
- * |  ESC |SFALTB|CTLCTV|ALTTAB|      |           | PAUSE| ACL0 | ACL1 | ACL2 | PSCR |
+ * |  ESC |SFALTB|CTLCTV|ALTTAB|      |           |  INS | ACL0 | ACL1 | ACL2 | PSCR |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |  TAB | HOME |  UP  |  END | PGUP |           | WH U | BTN1 | MS U | BTN2 |  INS |
+ * |  TAB | HOME |  UP  |  END | PGUP |           | WH U | BTN1 | MS U | BTN2 | PAUSE|
  * |------+------+------+------+------|           |------+------+------+------+------|
  * | CAPS | LEFT | DOWN | RGHT | PGDN |           | WH D | MS L | MS D | MS R | SCRLK|
  * `----------------------------------'           `----------------------------------'
@@ -245,8 +252,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_NAV] = LAYOUT( 
-  KC_ESC,  SFALTB,  CTLCTV,  ALTTAB,  _______,      KC_PAUS, KC_ACL0, KC_ACL1, KC_ACL2, KC_PSCR, \
-  KC_TAB,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,      KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, KC_INS,  \
+  KC_ESC,  SFALTB,  CTLCTV,  ALTTAB,  _______,      KC_INS,  KC_ACL0, KC_ACL1, KC_ACL2, KC_PSCR, \
+  KC_TAB,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,      KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, KC_PAUS, \
   KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,      KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_SLCK, \
                     SYS,     NUM_LK,  NAV_LK,       SYS_LK,  SYM_LK,  SYS                        \
 ),
@@ -313,24 +320,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case NUM:
+    case NUMEND:
       if (record->event.pressed) {
+        // Records press timer
+        bespoke_tap_timer = timer_read();
+        // turn on the NUM layer
         layer_on(_NUM);
         update_tri_layer(_NUM, _SYM, _FUN);
-      } else {
+      } else if (timer_elapsed(bespoke_tap_timer) < TAPPING_TERM) {
+        // Sends out 'end' if the key is held for less than tapping term 
+        tap_code(KC_END);
+        if (!is_numlock_active) {
+          // turn off the NUM layer
+          layer_off(_NUM);
+          update_tri_layer(_NUM, _SYM, _FUN);
+        }
+      } else if (!is_numlock_active) {
+        // turn off the NUM layer
         layer_off(_NUM);
         update_tri_layer(_NUM, _SYM, _FUN);
-      }
+      } 
       return false;
       break;
-    case SYM:
+    case SYMPGU:
       if (record->event.pressed) {
+        // Records press timer
+        bespoke_tap_timer = timer_read();
+        // turn on the SYM layer
         layer_on(_SYM);
         update_tri_layer(_NUM, _SYM, _FUN);
-      } else {
+      } else if (timer_elapsed(bespoke_tap_timer) < TAPPING_TERM) {
+        // Sends out 'pgup' if the key is held for less than tapping term 
+        tap_code(KC_PGUP);
+        if (!is_symlock_active) {
+          // turn off the SYM layer
+          layer_off(_SYM);
+          update_tri_layer(_NUM, _SYM, _FUN);
+        }
+      } else if (!is_symlock_active) {
+        // turn off the SYM layer
         layer_off(_SYM);
         update_tri_layer(_NUM, _SYM, _FUN);
-      }
+      } 
       return false;
       break;
     case FUN:
@@ -355,17 +386,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // turn on the NAV layer
         layer_on(_NAV);
       } else if (is_alt_tab_active) {
-        // turn off the NAV layer
-        layer_off(_NAV);
         // deactivate alt-tab
         is_alt_tab_active = false;
         unregister_code(KC_LALT);
+        if (!is_navlock_active) {
+          // turn off the NAV layer
+          layer_off(_NAV);
+        }
       } else if (timer_elapsed(bespoke_tap_timer) < TAPPING_TERM) {
         // turn off the NAV layer
         layer_off(_NAV);
         // Sends out 'home' if the key is held for less than tapping term 
         tap_code(KC_HOME);
-      } else {
+      } else if (!is_navlock_active) {
         // turn off the NAV layer
         layer_off(_NAV);
       } 
@@ -378,17 +411,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // turn on the NAV layer
         layer_on(_NAV);
       } else if (is_alt_tab_active) {
-        // turn off the NAV layer
-        layer_off(_NAV);
         // deactivate alt-tab
         is_alt_tab_active = false;
         unregister_code(KC_LALT);
+        if (!is_navlock_active) {
+          // turn off the NAV layer
+          layer_off(_NAV);
+        }
       } else if (timer_elapsed(bespoke_tap_timer) < TAPPING_TERM) {
         // turn off the NAV layer
         layer_off(_NAV);
         // Sends out 'pgdn' if the key is held for less than tapping term 
         tap_code(KC_PGDN);
-      } else {
+      } else if (!is_navlock_active) {
         // turn off the NAV layer
         layer_off(_NAV);
       } 
@@ -414,6 +449,50 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_code(KC_LSFT);
         tap_code(KC_TAB);
         unregister_code(KC_LSFT);
+      }
+      return false;
+      break;
+    case NAV_LK:
+      if (record->event.pressed) {
+        is_navlock_active = !is_navlock_active;
+      }
+      if (is_navlock_active) {
+        layer_on(_NAV);
+      } else {
+        layer_off(_NAV);
+      }
+      return false;
+      break;
+    case NUM_LK:
+      if (record->event.pressed) {
+        is_numlock_active = !is_numlock_active;
+      }
+      if (is_numlock_active) {
+        layer_on(_NUM);
+      } else {
+        layer_off(_NUM);
+      }
+      return false;
+      break;
+    case SYM_LK:
+      if (record->event.pressed) {
+        is_symlock_active = !is_symlock_active;
+      }
+      if (is_symlock_active) {
+        layer_on(_SYM);
+      } else {
+        layer_off(_SYM);
+      }
+      return false;
+      break;
+    case SYS_LK:
+      if (record->event.pressed) {
+        is_syslock_active = !is_syslock_active;
+      }
+      if (is_syslock_active) {
+        layer_on(_SYS);
+      } else {
+        layer_off(_SYS);
       }
       return false;
       break;
