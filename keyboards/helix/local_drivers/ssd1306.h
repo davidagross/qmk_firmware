@@ -1,9 +1,7 @@
-#ifndef SSD1306_H
-#define SSD1306_H
+#pragma once
 
 #include <stdbool.h>
 #include <stdio.h>
-#include "pincontrol.h"
 #include "action.h"
 
 enum ssd1306_cmds {
@@ -67,7 +65,7 @@ struct CharacterMatrix {
   bool dirty;
 };
 
-struct CharacterMatrix display;
+extern struct CharacterMatrix display;
 
 bool iota_gfx_init(bool rotate);
 void iota_gfx_task(void);
@@ -89,5 +87,3 @@ void matrix_write_P(struct CharacterMatrix *matrix, const char *data);
 void matrix_render(struct CharacterMatrix *matrix);
 
 bool process_record_gfx(uint16_t keycode, keyrecord_t *record);
-
-#endif
