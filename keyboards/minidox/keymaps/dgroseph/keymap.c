@@ -239,7 +239,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Navigation + mouse keys
  *
  * ,----------------------------------.           ,----------------------------------.
- * |  ESC |SFALTB|CTLCTV|ALTTAB|      |           |  INS | ACL0 | ACL1 | ACL2 | PSCR |
+ * |  ESC |SFALTB|CTLCTV|ALTTAB| CALC |           |  INS | ACL0 | ACL1 | ACL2 | PSCR |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |  TAB | HOME |  UP  |  END | PGUP |           | WH U | BTN1 | MS U | BTN2 | PAUSE|
  * |------+------+------+------+------|           |------+------+------+------+------|
@@ -252,7 +252,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_NAV] = LAYOUT( 
-  KC_ESC,  SFALTB,  CTLCTV,  ALTTAB,  _______,      KC_INS,  KC_ACL0, KC_ACL1, KC_ACL2, KC_PSCR, \
+  KC_ESC,  SFALTB,  CTLCTV,  ALTTAB,  KC_CALC,      KC_INS,  KC_ACL0, KC_ACL1, KC_ACL2, KC_PSCR, \
   KC_TAB,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,      KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, KC_PAUS, \
   KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,      KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_SLCK, \
                     SYS,     NUM_LK,  NAV_LK,       SYS_LK,  SYM_LK,  SYS                        \

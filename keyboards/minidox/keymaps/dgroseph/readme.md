@@ -151,7 +151,7 @@ NAV could be done from either hand, so put a layer trigger for it on each hand.
  * Navigation + mouse keys
  *
  * ,----------------------------------.           ,----------------------------------.
- * |  ESC |SFALTB|CTLCTV|ALTTAB|      |           |  INS | ACL0 | ACL1 | ACL2 | PSCR |
+ * |  ESC |SFALTB|CTLCTV|ALTTAB| CALC |           |  INS | ACL0 | ACL1 | ACL2 | PSCR |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |  TAB | HOME |  UP  |  END | PGUP |           | WH U | BTN1 | MS U | BTN2 | PAUSE|
  * |------+------+------+------+------|           |------+------+------+------+------|
