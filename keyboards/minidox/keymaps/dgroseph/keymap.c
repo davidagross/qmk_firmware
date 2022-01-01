@@ -88,7 +88,7 @@ uint16_t bespoke_tap_timer = 0;
  * define it here. Note this if you change your layout!
  *
  * ,----------------------------------.           ,----------------------------------.
- * |     ESC     |      |      (      |           |      )    BTN1    BTN2  BKSPC    |
+ * |  GRAVE_ESC  |      |      (      |           |      )    BTN1    BTN2  BKSPC    |
  * |------+------+--UP--+---{--+--DEL-|           |---:--+--}---+-MSUP-+------+------|
  * |     TAB   LEFT    RGHT    [      |           |      ]    MSLF    MSRT  ENTER    |
  * |------+------+--DN--+------+--SPC-|           |---;--+------+-MSDN-+------+------|
@@ -103,7 +103,7 @@ uint16_t bespoke_tap_timer = 0;
 combo_t key_combos[COMBO_COUNT] = {
     // Horizontal 2-Chords
 
-    [QW] = COMBO(qw_combo, KC_ESC),
+    [QW] = COMBO(qw_combo, KC_GESC),
     // WE,ER,
     [RT] = COMBO(rt_combo, KC_LPRN),
     [YU] = COMBO(yu_combo, KC_RPRN),
