@@ -100,6 +100,10 @@ uint16_t bespoke_tap_timer = 0;
  *                                |      |     |      |
  *                                `------'     `------'
  */
+
+// register combos from _QWERTY even when on another layer
+#define COMBO_ONLY_FROM_LAYER _QWERTY
+
 combo_t key_combos[COMBO_COUNT] = {
     // Horizontal 2-Chords
 
