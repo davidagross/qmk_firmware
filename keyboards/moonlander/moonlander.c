@@ -124,7 +124,9 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     bool LED_3 = false;
     bool LED_4 = false;
     bool LED_5 = false;
+#if !defined(CAPS_LOCK_STATUS)
     bool LED_6 = false;
+#endif
 
     uint8_t layer = get_highest_layer(state);
     switch (layer) {
@@ -318,7 +320,7 @@ bool music_mask_kb(uint16_t keycode) {
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_MOD_MAX:
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
         case AU_ON ... MUV_DE:
-        case RESET:
+        case QK_BOOT:
         case EEP_RST:
             return false;
         default:
