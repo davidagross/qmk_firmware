@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-#define MASTER_LEFT
-// #define MASTER_RIGHT
+// #define MASTER_LEFT
+#define MASTER_RIGHT
 // #define EE_HANDS
 
 #ifdef RGBLIGHT_ENABLE
@@ -39,6 +39,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
+#endif
+
+#define POINTING_DEVICE_ROTATION_90
+#define PIMORONI
+#ifdef TRACKBALL_RIGHT
+    #define POINTING_DEVICE_INVERT_X
+    #define POINTING_DEVICE_INVERT_Y
 #endif
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
