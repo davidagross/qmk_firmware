@@ -1,5 +1,3 @@
-# dgroseph, Minidox rules
+# dgroseph, Minidox-specific rules
 
-COMBO_ENABLE = yes
-EXTRAKEY_ENABLE = yes
-MOUSEKEY_ENABLE = yes
+# rules intentionally left blank
