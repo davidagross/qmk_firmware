@@ -10,34 +10,31 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 
-// Custom Layers
-#define _QWERTY 0
-#define _NUM 1
-#define _SYM 2
-#define _NAV 3
-#define _SYS 4
-#define _FUN 5
+enum custom_layers {
+  _QWERTY,
+  _NUM,
+  _SYM,
+  _NAV,
+  _SYS,
+  _FUN,
+};
 
-// Custom Keycodes
-#define QWERTY 10
-#define NUMEND 11
-#define SYMPGU 12
-#define NAVHOM 13
-#define NAVPGD 14
-#define CTLCTV 15
-#define ALTTAB 16
-#define SFALTB 17
-#define NAV_LK 18
-#define NUM_LK 19
-#define SYM_LK 20
-#define SYS_LK 21
-
-bool is_alt_tab_active = false;
-bool is_navlock_active = false;
-bool is_numlock_active = false;
-bool is_symlock_active = false;
-bool is_syslock_active = false;
-uint16_t bespoke_tap_timer = 0;
+enum custom_keycodes {
+  QWERTY = SAFE_RANGE,
+  NUMEND,
+  SYMPGU,
+  SYS,
+  FUN,
+  NAVHOM,
+  NAVPGD,
+  CTLCTV,
+  ALTTAB,
+  SFALTB,
+  NAV_LK,
+  NUM_LK,
+  SYM_LK,
+  SYS_LK
+};
 
 // Shortcuts and Thumbs skeleton from oprietop
 
@@ -61,20 +58,22 @@ uint16_t bespoke_tap_timer = 0;
 #define CTLRT RCTL(KC_RGHT)
 
 // Thumbs
-// #define NAVHOM LT(_NAV, KC_HOME) // these are now in process_record_user to ...
-// #define NUMEND LT(_NUM, KC_END)  // and these are now in process_record_user to >>>
+#define NAVHOM LT(_NAV, KC_HOME)
+#define NUMEND LT(_NUM, KC_END)
 #define CTL_BK LCTL_T(KC_BSPC)
 #define SFT_SP RSFT_T(KC_SPC)
-// #define SYMPGU LT(_SYM, KC_PGUP) // <<< be able to keep the layer on after the momentary with a lock
-// #define NAVPGD LT(_NAV, KC_PGDN) // ... unregister ALT on release for ALTTAB
+#define SYMPGU LT(_SYM, KC_PGUP)
+#define NAVPGD LT(_NAV, KC_PGDN)
 
 #define FUN_0 LT(_FUN, KC_0)
+#define FNFNLK LT(_FUN, FUN_LK)
 
 // some mod-taps from dustypomerleau
-// #define NAV_LK TG(_NAV) // these are now in process_record_user to ... 
-// #define NUM_LK TG(_NUM) // ...
-// #define SYM_LK TG(_SYM) // ...
-// #define SYS_LK TG(_SYS) // ... work properly independent of the layer from which they are pressed
+#define NAV_LK TG(_NAV)
+#define NUM_LK TG(_NUM)
+#define FUN_LK TG(_FUN)
+#define SYM_LK TG(_SYM)
+#define SYS_LK TG(_SYS)
 #define VOL_DN S(LALT(KC__VOLDOWN))
 #define VOL_UP S(LALT(KC__VOLUP))
 
@@ -175,6 +174,11 @@ combo_t key_combos[COMBO_COUNT] = {
 * |------+------+------+------+------|           |------+------+------+------+------|
 * |   Z  |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   /  |
 * `----------------------------------'           `----------------------------------'
+*                  ,--------------------.    ,------,-------------.
+*                  |NAVHOM|NUMEND|      |    |      |SYMPGU|NAVPGD|
+*                  `-------------| CTLBK|    | SFTSP|------+------.
+*                                |      |    |      |
+*                                `------'    `------'
 */
 
 #define _________________QWERTY_L1_________________ KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
@@ -185,6 +189,9 @@ combo_t key_combos[COMBO_COUNT] = {
 #define _________________QWERTY_R2_________________ KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT
 #define _________________QWERTY_R3_________________ KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
 
+#define _______QWERTY_LTHM_______ NAVHOM,  NUMEND,  CTL_BK
+#define _______QWERTY_RTHM_______ SFT_SP,  SYMPGU,  NAVPGD
+
 /* NUM
 * Number - Focus on one-handed use and numpad on right from tw1t611
 * ,----------------------------------.           ,----------------------------------.
@@ -194,6 +201,11 @@ combo_t key_combos[COMBO_COUNT] = {
 * |------+------+------+------+------|           |------+------+------+------+------|
 * |   /  |   .  |   *  |   +  |   -  |           |   -  |   1  |   2  |   3  |   =  |
 * `----------------------------------'           `----------------------------------'
+*                  ,--------------------.    ,------,-------------.
+*                  |NUM LK|      |      |    |      | FUN/0|   .  |
+*                  `-------------|      |    | ENTER|------+------.
+*                                |      |    |      |
+*                                `------'    `------'
 */
 
 #define _________________NUMBER_L1_________________ KC_1,    KC_2,    KC_3,    KC_4,    KC_5
@@ -204,6 +216,9 @@ combo_t key_combos[COMBO_COUNT] = {
 #define _________________NUMBER_R2_________________ KC_UNDS, KC_4,    KC_5,    KC_6,    KC_PLUS
 #define _________________NUMBER_R3_________________ KC_MINS, KC_1,    KC_2,    KC_3,    KC_EQL
 
+#define _______NUMBER_LTHM_______ NUM_LK,  _______, _______
+#define _______NUMBER_RTHM_______ KC_ENT,  FUN_0,   KC_DOT
+
 /* SYM
 * Symbol - Focus on one-handed use from tw1t611, symbol layer from oprietop's Lower
 * ,----------------------------------.           ,----------------------------------.
@@ -213,6 +228,11 @@ combo_t key_combos[COMBO_COUNT] = {
 * |------+------+------+------+------|           |------+------+------+------+------|
 * |      | GUILT| GUIDN| GUIRT|      |           |   ~  |   \  |   |  |  {   |   }  |
 * `----------------------------------'           `----------------------------------'
+*                  ,--------------------.    ,------,-------------.
+*                  |NUM LK|FNFNLK|      |    |      |      |SYM LK|
+*                  `-------------|  DEL |    |      |------+------.
+*                                |      |    |      |
+*                                `------'    `------'
 */
 
 #define _________________SYMBOL_L1_________________ KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC
@@ -223,6 +243,9 @@ combo_t key_combos[COMBO_COUNT] = {
 #define _________________SYMBOL_R2_________________ KC_GRV,  KC_SCLN, KC_COLN, KC_LBRC, KC_RBRC
 #define _________________SYMBOL_R3_________________ KC_TILD, KC_BSLS, KC_PIPE, KC_LCBR, KC_RCBR
 
+#define _______SYMBOL_LTHM_______ NUM_LK,  FNFNLK,  KC_DEL
+#define _______SYMBOL_RTHM_______ _______, _______, SYM_LK
+
 /* NAV
 * Navigation + mouse keys
 * ,----------------------------------.           ,----------------------------------.
@@ -232,6 +255,11 @@ combo_t key_combos[COMBO_COUNT] = {
 * |------+------+------+------+------|           |------+------+------+------+------|
 * | CAPS | LEFT | DOWN | RGHT | PGDN |           | WH D | MS L | MS D | MS R | SCRLK|
 * `----------------------------------'           `----------------------------------'
+*                  ,--------------------.    ,--------------------.
+*                  |  SYS |NUM LK|      |    |      |SYM LK|  SYS |
+*                  `------+------|NAV LK|    |SYS LK|------+------'
+*                                |      |    |      |
+*                                `------'    `------'
 */
 
 #define _________________NAVIG8_L1_________________ KC_ESC,  SFALTB,  CTLCTV,  ALTTAB,  KC_CALC
@@ -242,6 +270,9 @@ combo_t key_combos[COMBO_COUNT] = {
 #define _________________NAVIG8_R2_________________ KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, KC_PAUS
 #define _________________NAVIG8_R3_________________ KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_SLCK
 
+#define _______NAVIG8_LTHM_______ SYS,     NUM_LK,  NAV_LK
+#define _______NAVIG8_RTHM_______ SYS_LK,  SYM_LK,  SYS
+
 /* SYS (NAV + NAV)
 * System, media, and layer lock keys from dustypomerleau
 * ,----------------------------------.           ,----------------------------------.
@@ -251,6 +282,11 @@ combo_t key_combos[COMBO_COUNT] = {
 * |------+------+------+------+------|           | -----+------+------+------+------|
 * |      |      |      |      |BRITE-|           |      |      |      |      |      |
 * `----------------------------------'           `----------------------------------'
+*                  ,--------------------.    ,------,-------------.
+*                  |      |NUM LK|      |    |      |SYM LK|      |
+*                  `-------------|NAV LK|    |SYS LK|------+------.
+*                                |      |    |      |
+*                                `------'    `------'
 */
 
 #define _________________SYSTEM_L1_________________ RESET,   DEBUG,   QWERTY,  _______, _______
@@ -260,6 +296,9 @@ combo_t key_combos[COMBO_COUNT] = {
 #define _________________SYSTEM_R1_________________ VOL_DN,  VOL_UP,  KC_MUTE, KC_VOLD, KC_VOLU
 #define _________________SYSTEM_R2_________________ _______, KC_MRWD, KC_MPLY, KC_MFFD, _______
 #define _________________SYSTEM_R3_________________ _______, _______, _______, _______, _______
+
+#define _______SYSTEM_LTHM_______ _______, NUM_LK,  NAV_LK
+#define _______SYSTEM_RTHM_______ SYS_LK,  SYM_LK,  _______ 
 
 /* FUN (NUM + SYM)
   *
@@ -271,7 +310,7 @@ combo_t key_combos[COMBO_COUNT] = {
   * |      |      |      |  F11 |  F12 |           |      |  F1  |  F2  |  F3  |  F12 |
   * `----------------------------------'           `----------------------------------'
   *                  ,--------------------.    ,------,-------------.
-  *                  |TSKMGR|      |      |    |      |      |CALTDE|
+  *                  |TSKMGR|FUN LK|      |    |      |      |CALTDE|
   *                  `-------------|      |    |      |------+------.
   *                                |      |    |      |
   *                                `------'    `------'
@@ -284,3 +323,6 @@ combo_t key_combos[COMBO_COUNT] = {
 #define _________________FNCSHN_R1_________________ KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 #define _________________FNCSHN_R2_________________ _______, KC_F4,   KC_F5,   KC_F6,   KC_F11
 #define _________________FNCSHN_R3_________________ _______, KC_F1,   KC_F2,   KC_F3,   KC_F12
+
+#define _______FNCSHN_LTHM_______ TSKMGR,  FUN_LK,  _______
+#define _______FNCSHN_RTHM_______ _______, _______, CALTDEL
