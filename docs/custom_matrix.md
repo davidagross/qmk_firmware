@@ -74,10 +74,10 @@ void matrix_init(void) {
     // TODO: initialize hardware and global matrix state here
 
     // Unless hardware debouncing - Init the configured debounce routine
-    debounce_init(MATRIX_ROWS);
+    debounce_init();
 
     // This *must* be called for correct keyboard behavior
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 uint8_t matrix_scan(void) {
@@ -86,10 +86,10 @@ uint8_t matrix_scan(void) {
     // TODO: add matrix scanning routine here
 
     // Unless hardware debouncing - use the configured debounce routine
-    changed = debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+    changed = debounce(raw_matrix, matrix, changed);
 
     // This *must* be called for correct keyboard behavior
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     return changed;
 }

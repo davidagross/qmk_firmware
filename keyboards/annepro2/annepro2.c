@@ -46,8 +46,12 @@ ble_capslock_t ble_capslock = {._dummy = {0}, .caps_lock = false};
 
 #ifdef RGB_MATRIX_ENABLE
 static uint8_t led_enabled = 1;
-static uint8_t current_rgb_row = 0;
 #endif
+
+void mcu_reset(void) {
+    __disable_irq();
+    NVIC_SystemReset();
+}
 
 void bootloader_jump(void) {
     // Send msg to shine to boot into IAP
@@ -102,17 +106,15 @@ void keyboard_post_init_kb(void) {
     // loop to clear out receive buffer from ble wakeup
     while (!sdGetWouldBlock(&SD1)) sdGet(&SD1);
 
-    ap2_led_get_status();
-
     #ifdef RGB_MATRIX_ENABLE
-    ap2_led_enable();
     ap2_led_set_manual_control(1);
+    ap2_led_enable();
     #endif
 
     keyboard_post_init_user();
 }
 
-void matrix_scan_kb() {
+void matrix_scan_kb(void) {
     // if there's stuff on the ble serial buffer
     // read it into the capslock struct
     while (!sdGetWouldBlock(&SD1)) {
@@ -125,15 +127,6 @@ void matrix_scan_kb() {
         proto_consume(&proto, byte);
     }
 
-    #ifdef RGB_MATRIX_ENABLE
-    /* If there's data ready to be sent to LED MCU - send it. */
-    if(rgb_row_changed[current_rgb_row])
-    {
-        rgb_row_changed[current_rgb_row] = 0;
-        ap2_led_colors_set_row(current_rgb_row);
-    }
-    current_rgb_row = (current_rgb_row + 1) % NUM_ROW;
-    #endif
 
     matrix_scan_user();
 }
@@ -223,7 +216,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 ap2_led_reset_foreground_color();
                 return false;
             #ifdef RGB_MATRIX_ENABLE
-            case RGB_TOG:
+            case QK_RGB_MATRIX_TOGGLE:
                 if(rgb_matrix_is_enabled()) ap2_led_disable();
                 else ap2_led_enable();
                 return true;

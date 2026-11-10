@@ -104,6 +104,12 @@ typedef struct usbConfigurationDescriptor {
     usbEndpointDescriptor_t  rawOUTEndpoint;
 #endif
 
+#if defined(PLOVER_HID_ENABLE)
+    usbInterfaceDescriptor_t ploverInterface;
+    usbHIDDescriptor_t       ploverHID;
+    usbEndpointDescriptor_t  ploverINEndpoint;
+#endif
+
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
     usbInterfaceDescriptor_t sharedInterface;
     usbHIDDescriptor_t       sharedHID;
@@ -114,13 +120,9 @@ typedef struct usbConfigurationDescriptor {
     usbInterfaceDescriptor_t consoleInterface;
     usbHIDDescriptor_t       consoleHID;
     usbEndpointDescriptor_t  consoleINEndpoint;
-    usbEndpointDescriptor_t  consoleOUTEndpoint;
 #endif
 } __attribute__((packed)) usbConfigurationDescriptor_t;
-
-#define USB_STRING_LEN(s) (sizeof(usbDescriptorHeader_t) + ((s) << 1))
 
 extern bool vusb_suspended;
 
 host_driver_t *vusb_driver(void);
-void           vusb_transfer_keyboard(void);

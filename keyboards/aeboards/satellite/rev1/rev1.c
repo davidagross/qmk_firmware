@@ -13,12 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rev1.h"
+#include "quantum.h"
 #include "i2c_master.h"
 #include "drivers/led/issi/is31fl3731.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -102,81 +102,30 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {1, C8_16,  C7_16,  C6_16}  //D17
 };
 
-led_config_t g_led_config = { {
-    {   0+17,   0+16,   0+15,   0+14,   0+13,   0+12,   0+11,   0+10,   0+ 9,  18+ 0,  18+ 1,  18+ 2,  18+ 3,  18+ 4,  18+ 6 },
-    {   0+ 7,   0+ 6,   0+ 5,   0+ 4,   0+ 3,   0+ 2,   0+ 1,   0+ 0,  18+ 9,  18+10,  18+11,  18+12,  18+13,  18+14,  18+ 7 },
-    {   0+ 8,  36+14,  36+13,  36+12,  36+11,  36+10,  36+ 9,  54+ 0,  54+ 1,  54+ 2,  54+ 3,  54+ 4,  54+ 5, NO_LED,  18+ 8 },
-    {  36+15,  36+ 5,  36+ 4,  36+ 3,  36+ 2,  36+ 1,  54+ 9,  54+10,  54+11,  54+12,  54+ 6, NO_LED,  54+ 7,  54+ 8,  18+15 },
-    {  36+16,  36+ 8,  36+ 7, NO_LED, NO_LED,  36+ 0, NO_LED, NO_LED, NO_LED,  54+15,  54+16, NO_LED,  54+17,  18+17,  18+16 },
-}, {
-    //A0 .. A17
-    {112,16 }, { 97,16 }, { 82,16 }, { 67,16 }, { 52,16 }, { 37,16 }, { 22,16 }, {  4,16 }, {  6,32 },
-    {119,0  }, {105,0  }, { 90,0  }, { 75,0  }, { 60,0  }, { 45,0  }, { 30,0  }, { 15,0  }, {  0,0  },
-
-    //B0 .. B17
-    {134,0  }, {149,0  }, {164,0  }, {179,0  }, {202,0  }, {255,255}, {224,0  }, {224,16 }, {224,32 },
-    {127,16 }, {142,16 }, {157,16 }, {172,16 }, {187,16 }, {205,16 }, {224,48 }, {224,64 }, {209,64 },
-
-    //C0 .. C17
-    { 95,64 }, { 93,48 }, { 78,48 }, { 63,48 }, { 49,48 }, { 34,48 }, { 67,56 }, { 39,64 }, { 21,64 },
-    {101,32 }, { 86,32 }, { 71,32 }, { 56,32 }, { 41,32 }, { 26,32 }, {  9,48 }, {  2,64 }, {255,255},
-
-    //D0 .. D17
-    {116,32 }, {131,32 }, {146,32 }, {161,32 }, {175,32 }, {200,32 }, {168,48 }, {189,48 }, {209,48 },
-    {108,48 }, {123,48 }, {138,48 }, {153,48 }, {255,255}, {120,56 }, {153,64 }, {175,64 }, {194,64 }
-}, {
-    //A0 .. A17
-    4, 4, 4, 4, 4, 4, 4, 1, 1,
-    4, 4, 4, 4, 4, 4, 4, 4, 4,
-
-    //B0 .. B17
-    4, 4, 4, 4, 4, 4, 4, 4, 4,
-    4, 4, 4, 4, 4, 4, 4, 1, 1,
-
-    //C0 .. C17
-    4, 4, 4, 4, 4, 4, 4, 1, 1,
-    4, 4, 4, 4, 4, 4, 1, 1, 4,
-
-    //D0 .. D17
-    4, 4, 4, 4, 4, 4, 4, 4, 4,
-    4, 4, 4, 4, 4, 4, 1, 1, 1
-} };
-
 // Custom Driver
 static void init(void) {
     i2c_init();
-    IS31FL3731_init(DRIVER_ADDR_1);
-    IS31FL3731_init(DRIVER_ADDR_2);
-    for (int index = 0; index < ISSI_DRIVER_TOTAL; index++) {
+
+    is31fl3731_init(0);
+    is31fl3731_init(1);
+
+    for (int index = 0; index < IS31FL3731_LED_COUNT; index++) {
         bool enabled = !(   ( index == 18+5) || //B5
                             ( index == 36+17) || //C17
                             ( index == 54+13) //D13
                         );
-        IS31FL3731_set_led_control_register(index, enabled, enabled, enabled);
+        is31fl3731_set_led_control_register(index, enabled, enabled, enabled);
     }
-    IS31FL3731_update_led_control_registers(DRIVER_ADDR_1, 0);
-    IS31FL3731_update_led_control_registers(DRIVER_ADDR_2, 1);
-}
 
-static void flush(void) {
-    IS31FL3731_update_pwm_buffers(DRIVER_ADDR_1, 0);
-    IS31FL3731_update_pwm_buffers(DRIVER_ADDR_2, 1);
+    is31fl3731_update_led_control_registers(0);
+    is31fl3731_update_led_control_registers(1);
 }
-
-static void set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    IS31FL3731_set_color(index, red, green, blue);
-}
-
-static void set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    IS31FL3731_set_color_all( red, green, blue );
-}
-
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
-    .flush = flush,
-    .set_color = set_color,
-    .set_color_all = set_color_all
+    .flush = is31fl3731_flush,
+    .set_color = is31fl3731_set_color,
+    .set_color_all = is31fl3731_set_color_all
 };
 
 #endif

@@ -1,5 +1,4 @@
-# MCU name
-MCU = atmega32u2
+CUSTOM_MATRIX = yes
 
-CONSOLE_ENABLE = no   # Console for debug
-COMMAND_ENABLE = no   # Commands for debug and configuration
+# project specific files
+SRC = matrix.c

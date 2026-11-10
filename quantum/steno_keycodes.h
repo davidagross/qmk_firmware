@@ -1,0 +1,71 @@
+// Copyright 2026 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#pragma once
+
+#include "keycodes.h"
+
+// Deprecated steno keycodes
+#define STN_FN QK_STENO_FUNCTION
+#define STN_N1 QK_STENO_N1
+#define STN_N2 QK_STENO_N2
+#define STN_N3 QK_STENO_N3
+#define STN_N4 QK_STENO_N4
+#define STN_N5 QK_STENO_N5
+#define STN_N6 QK_STENO_N6
+#define STN_S1 QK_STENO_S1
+#define STN_S2 QK_STENO_S2
+#define STN_TL QK_STENO_TL
+#define STN_KL QK_STENO_KL
+#define STN_PL QK_STENO_PL
+#define STN_WL QK_STENO_WL
+#define STN_HL QK_STENO_HL
+#define STN_RL QK_STENO_RL
+#define STN_A QK_STENO_A
+#define STN_O QK_STENO_O
+#define STN_ST1 QK_STENO_ST1
+#define STN_ST2 QK_STENO_ST2
+#define STN_RE1 QK_STENO_RESET1
+#define STN_RE2 QK_STENO_RESET2
+#define STN_PWR QK_STENO_POWER
+#define STN_ST3 QK_STENO_ST3
+#define STN_ST4 QK_STENO_ST4
+#define STN_E QK_STENO_E
+#define STN_U QK_STENO_U
+#define STN_FR QK_STENO_FR
+#define STN_RR QK_STENO_RR
+#define STN_PR QK_STENO_PR
+#define STN_BR QK_STENO_BR
+#define STN_LR QK_STENO_LR
+#define STN_GR QK_STENO_GR
+#define STN_TR QK_STENO_TR
+#define STN_SR QK_STENO_SR
+#define STN_DR QK_STENO_DR
+#define STN_N7 QK_STENO_N7
+#define STN_N8 QK_STENO_N8
+#define STN_N9 QK_STENO_N9
+#define STN_NA QK_STENO_NA
+#define STN_NB QK_STENO_NB
+#define STN_NC QK_STENO_NC
+#define STN_ZR QK_STENO_ZR
+
+#define STN_NUM QK_STENO_N1
+#define STN_SL QK_STENO_S1
+#define STN_STR QK_STENO_ST1
+#define STN_RES1 QK_STENO_RESET1
+#define STN_RES2 QK_STENO_RESET2
+
+#define STN_S3 QK_STENO_S3
+#define STN_TKL QK_STENO_TKL
+#define STN_PWL QK_STENO_PWL
+#define STN_HRL QK_STENO_HRL
+#define STN_FRR QK_STENO_FRR
+#define STN_PBR QK_STENO_PBR
+#define STN_LGR QK_STENO_LGR
+#define STN_TSR QK_STENO_TSR
+#define STN_DZR QK_STENO_DZR
+#define STN_AO QK_STENO_AO
+#define STN_EU QK_STENO_EU
+
+#define QK_STENO_BOLT QK_STENO_MODE_BOLT
+#define QK_STENO_GEMINI QK_STENO_MODE_GEMINI

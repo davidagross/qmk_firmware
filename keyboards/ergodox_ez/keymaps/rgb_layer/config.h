@@ -5,11 +5,10 @@
 #define RGBLIGHT_SLEEP
 
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
 
 
-#define FORCE_NKRO
+#define NKRO_DEFAULT_ON true
 
 #ifndef TAPPING_TOGGLE
 #define TAPPING_TOGGLE  1

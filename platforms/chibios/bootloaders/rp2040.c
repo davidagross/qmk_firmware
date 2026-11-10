@@ -1,9 +1,10 @@
 // Copyright 2022 Stefan Kerkmann
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "quantum.h"
 #include "hal.h"
 #include "bootloader.h"
+#include "gpio.h"
+#include "wait.h"
 #include "pico/bootrom.h"
 
 #if !defined(RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED)
@@ -29,7 +30,7 @@ void enter_bootloader_mode_if_requested(void) {}
 // Needs to be located in a RAM section that is never initialized on boot to
 // preserve its value on reset
 static volatile uint32_t __attribute__((section(".ram0.bootloader_magic"))) magic_location;
-const uint32_t magic_token = 0xCAFEB0BA;
+const uint32_t                                                              magic_token = 0xCAFEB0BA;
 
 // We can not use the __early_init / enter_bootloader_mode_if_requested hook as
 // we depend on an already initialized system with usable memory regions and

@@ -13,10 +13,8 @@ umask 022
 #   sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
 #   sudo apt-get update && sudo apt-get install adoptopenjdk-8-hotspot
 #
-# For Fedora 36-ish distros:
-#  # Prep yum repository from https://adoptium.net/installation/linux/
-#  sudo dnf install -y ant temurin-8-jdk
-#  export JAVA_HOME=/usr/lib/jvm/temurin-8-jdk
+# For Fedora 37-ish distros:
+#  sudo dnf install -y ant java-1.8.0-openjdk.x86_64
 
 sinfo() { echo "$@" >&2 ; }
 shead() { sinfo "" ; sinfo "---------------------------------" ; sinfo "-- $@" ; sinfo "---------------------------------" ; }
@@ -64,7 +62,7 @@ upgrade_conf_files_generic() {
     pushd "$qmk_firmware_dir/lib/chibios/tools/updater" >/dev/null 2>&1
     for file in $(find_chibi_files "$qmk_firmware_dir" -name "$search_filename") ; do
         cp -f "$file" "$file.orig"
-        clang-format --style='{IndentPPDirectives: None}' -i "$file"
+        clang-format --style='{IndentPPDirectives: None, ColumnLimit: 0}' -i "$file"
         cp -f "$file" "$file.formatted"
         bash "$update_script" "$file"
         if ! diff "$file" "$file.formatted" >/dev/null 2>&1 ; then
